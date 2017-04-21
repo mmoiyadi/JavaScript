@@ -27,9 +27,19 @@ compare = function(cell1, cell2){
 }
 
 reveal = function(cell){
-	cell.style.background = "green";
+	//cell.style.background = "green";
 	var id = cell.getAttribute("id");
-	cell.innerText = numbers[id];
+	//cell.innerText = numbers[id];
+	if(numbers[id] == "1")
+		cell.style.background = "url(apple.jpg) no-repeat center center";
+	else if(numbers[id] == "2")
+		cell.style.background = "url(orange.jpg) no-repeat center center";
+	else if(numbers[id] == "3")
+		cell.style.background = "url(mango.jpg) no-repeat center center";
+	else if(numbers[id] == "4")
+		cell.style.background = "url(pineapple.jpg) no-repeat center center";
+	else
+		cell.style.background = "green";
 }
 
 hide = function(cell){
