@@ -11,10 +11,18 @@ timerListener = function(){
 	count++;
 	document.getElementById("timer").innerHTML = "Time Elapsed:" + count;
 	},1000);
+	document.getElementById("hidden").innerText = "";
 	start();
 }
 
+winEventListener = function(){
+	//alert("You won the game in " + count + " seconds");
+	var str = "You won the game in " + count + " seconds";
+	document.getElementById("hidden").innerText = str;
+}
+
 document.getElementById("restart").addEventListener("click",timerListener);
+document.getElementById("hidden").addEventListener("win",winEventListener)
 
 compare = function(cell1, cell2){
 	var id1 = cell1.getAttribute("id");
@@ -57,10 +65,13 @@ clickHandler = function(){
 				pairing = null;
 				paired++;
 				if(paired == 4){
-					alert("You won the game in " + count + " seconds");
+					//alert("You won the game in " + count + " seconds");
 					paired=0;
 					if(timerInterval)
 						clearInterval(timerInterval);
+					//alert("You won the game in " + count + " seconds");
+					var event = new Event('win');
+					document.getElementById("hidden").dispatchEvent(event);
 				}
 				return;
 			 }
@@ -80,15 +91,31 @@ var pairing=null;
 var numbers = [];
 var paired = 0;
 
+
+function randomAnswers(){
+        var answers = [1,1,2,2,3,3,4,4,5];
+
+        answers.sort(function(item){
+            return .5 - Math.random();
+        })
+
+        return answers;
+
+    }
+
 start = function(populate){
 	var table = document.getElementById("gridTable");
+	var ra = randomAnswers();
+	var countRA = 0;
 	for (var i = 0, row; row = table.rows[i]; i++) {
 	   for (var j = 0, col; col = row.cells[j]; j++) {
 		 var id = col.getAttribute("id");
-		 if(populate){
+		 col.innerText = ra[countRA].toString();
+		 countRA = countRA + 1;
+		 //if(populate){
 			numbers[id] = col.innerText;
 			col.addEventListener("click",clickHandler);
-		 }
+		 //}
 		 hide(col);
 	   }  
 	}
