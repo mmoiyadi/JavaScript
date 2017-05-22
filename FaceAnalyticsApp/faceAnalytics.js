@@ -32,7 +32,8 @@ function analyze(){
 			document.getElementById("img1").src=document.getElementById("input").value;
 		}
 		else{
-			alert("No face detected");
+			document.getElementById("img1").src = "";
+			document.getElementById("output").innerHTML = "No Faces Detected";
 		}
 	}).catch(function(err){
 		alert(err);  
